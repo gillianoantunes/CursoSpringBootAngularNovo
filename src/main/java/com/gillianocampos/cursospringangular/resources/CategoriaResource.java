@@ -3,26 +3,30 @@ package com.gillianocampos.cursospringangular.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gillianocampos.cursospringangular.entities.Categoria;
+import com.gillianocampos.cursospringangular.services.CategoriaService;
 
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResource {
 	
+	@Autowired
+	private CategoriaService service;
 	
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Categoria> findAll(){
-		Categoria cat1 = new Categoria(1, "Informatica");
-		Categoria cat2 = new Categoria(2, "Teste");
-		List<Categoria> lista = new ArrayList<>();
-		lista.add(cat1);
-		lista.add(cat2);
-		return lista;
+	//INSERIR UMAS CATEGORIA DIRETO NO BANCO H2
+	@RequestMapping(value= "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id){ //? pode ser qualquer tipo
+		
+		Categoria obj = service.buscar(id);
+		return ResponseEntity.ok().body(obj);
+
 		
 	}
 
