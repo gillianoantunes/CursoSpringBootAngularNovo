@@ -22,12 +22,9 @@ public class CategoriaResource {
 	
 	//INSERIR UMAS CATEGORIA DIRETO NO BANCO H2
 	@RequestMapping(value= "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id){ //? pode ser qualquer tipo
-		
+	public ResponseEntity<?> find(@PathVariable Integer id){ //? pode ser qualquer tipo		
 		Categoria obj = service.buscar(id);
-		return ResponseEntity.ok().body(obj);
-
-		
+		return ResponseEntity.ok().body(obj);		
 	}
 
 }
