@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.gillianocampos.cursospringangular.entities.Categoria;
+import com.gillianocampos.cursospringangular.entities.Cidade;
+import com.gillianocampos.cursospringangular.entities.Estado;
 import com.gillianocampos.cursospringangular.entities.Produto;
 import com.gillianocampos.cursospringangular.repositories.CategoriaRepository;
+import com.gillianocampos.cursospringangular.repositories.CidadeRepository;
+import com.gillianocampos.cursospringangular.repositories.EstadoRepository;
 import com.gillianocampos.cursospringangular.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -20,6 +24,12 @@ public class CursospringangularApplication implements CommandLineRunner {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursospringangularApplication.class, args);
@@ -45,6 +55,23 @@ public class CursospringangularApplication implements CommandLineRunner {
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		
 		produtoRepository.saveAll(Arrays.asList(produto1,produto2,produto3));
+		
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+		
+		Cidade cid1 = new Cidade(null, "Uberlandia", est1);
+		Cidade cid2 = new Cidade(null, "São Paulo", est2);
+		Cidade cid3 = new Cidade(null, "Campinas", est2);
+		
+		est1.getCidades().addAll(Arrays.asList(cid1));
+		est2.getCidades().addAll(Arrays.asList(cid2,cid3));
+		
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		
+		cidadeRepository.saveAll(Arrays.asList(cid1,cid2,cid3));
+		
+		
+		
 	}
 
 }
