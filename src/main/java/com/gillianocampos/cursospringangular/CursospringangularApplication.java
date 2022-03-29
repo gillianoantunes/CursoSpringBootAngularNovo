@@ -1,5 +1,6 @@
 package com.gillianocampos.cursospringangular;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,20 @@ import com.gillianocampos.cursospringangular.entities.Cidade;
 import com.gillianocampos.cursospringangular.entities.Cliente;
 import com.gillianocampos.cursospringangular.entities.Endereco;
 import com.gillianocampos.cursospringangular.entities.Estado;
+import com.gillianocampos.cursospringangular.entities.Pagamento;
+import com.gillianocampos.cursospringangular.entities.PagamentoComBoleto;
+import com.gillianocampos.cursospringangular.entities.PagamentoComCartao;
+import com.gillianocampos.cursospringangular.entities.Pedido;
 import com.gillianocampos.cursospringangular.entities.Produto;
+import com.gillianocampos.cursospringangular.entities.enums.EstadoPagamento;
 import com.gillianocampos.cursospringangular.entities.enums.TipoCliente;
 import com.gillianocampos.cursospringangular.repositories.CategoriaRepository;
 import com.gillianocampos.cursospringangular.repositories.CidadeRepository;
 import com.gillianocampos.cursospringangular.repositories.ClienteRepository;
 import com.gillianocampos.cursospringangular.repositories.EnderecoRepository;
 import com.gillianocampos.cursospringangular.repositories.EstadoRepository;
+import com.gillianocampos.cursospringangular.repositories.PagamentoRepository;
+import com.gillianocampos.cursospringangular.repositories.PedidoRepository;
 import com.gillianocampos.cursospringangular.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -41,6 +49,12 @@ public class CursospringangularApplication implements CommandLineRunner {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursospringangularApplication.class, args);
@@ -103,7 +117,34 @@ public class CursospringangularApplication implements CommandLineRunner {
 		
 		enderecoRepository.saveAll(Arrays.asList(end1,end2));
 		
-	
+		
+		//instanciar os pedidos
+		//HH maisculos MM tambem
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		//quando instancia ele pede o pagamento, mudar pedido e tirar pagamento no construtor para tirar a obrigatoriedade pois relacionamento é 1 para 1
+		Pedido ped1 = new Pedido(null,sdf.parse("30/09/2017 10:32"),cli1, end1);
+		Pedido ped2 = new Pedido(null,sdf.parse("10/10/2017 19:35"),cli1, end2);
+		
+		//instanciar o pagamento abstract dando new com subclasses
+		//nunca instancia pagamento diretamente abstract
+		Pagamento pag1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		//agora adicionar este pagamento ao pedido1
+		ped1.setPagamento(pag1);
+		
+		//data do pagamento esta null pq não foi pago ainda
+		Pagamento pag2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+		//agora adicionar este pagamento ao pedido2
+		ped2.setPagamento(pag2);
+		
+		//associar os clientes aos pedidos
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		
+		//salvo o pedido primeiro pois ele é independente do pagamento
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+		
+		pagamentoRepository.saveAll(Arrays.asList(pag1,pag2));
+		
+		
 	}
 
 }
