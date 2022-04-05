@@ -15,6 +15,7 @@ import javax.persistence.Id;
 
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gillianocampos.cursospringangular.entities.enums.TipoCliente;
 
@@ -46,6 +47,7 @@ public class Cliente implements Serializable{
 	@CollectionTable(name = "Telefone")
 	private Set<String> telefones = new HashSet<>();
 	
+	@JsonBackReference //cliente com pedido os pedidos de um clientes nao serao serializados
 	//relacionamento com pedido 1 cliente tem varios pedidos
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();

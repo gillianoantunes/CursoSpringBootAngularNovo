@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gillianocampos.cursospringangular.entities.enums.EstadoPagamento;
 
 //subclasse de Pagamento e não faz hashcode e equals pois a comparação ja esta na superclasse pagamento
@@ -13,7 +14,10 @@ public class PagamentoComBoleto extends Pagamento{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy") //formata a data
 	private Date dataVencimento;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy") //formata a data
 	private Date dataPagamento;
 	
 

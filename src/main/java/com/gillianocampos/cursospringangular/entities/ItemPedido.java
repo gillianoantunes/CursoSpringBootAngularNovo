@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemPedido implements Serializable {
 
@@ -13,6 +15,7 @@ public class ItemPedido implements Serializable {
 	// chave é do tipo da classe auxiliar ItemPedidoPK onde tem 2 chaves primarias
 	// de Produto e Pedido
 
+	@JsonIgnore
 	@EmbeddedId //id que esta embutido em uma classe auxiliar ItemPedidoPK
 	private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -36,12 +39,14 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
+	@JsonIgnore //referencia ciclica tudo que começa com get ele serializa tem que ignorar
 	// get de Produto e Pedido para ter acesso direto ao Pedido e Produto fora da
 	// minha classe ItemPedido
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
 
+	//nao usei @jsonIgnore para aparecer o produto nos items
 	public Produto getProduto() {
 		return id.getProduto();
 	}
