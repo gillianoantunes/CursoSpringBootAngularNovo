@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gillianocampos.cursospringangular.entities.enums.EstadoPagamento;
 
 @Entity
@@ -29,7 +29,7 @@ public abstract class Pagamento implements Serializable{
 	//o esatdo é armazenado como inteiro mas para o mundo externo a classe expoe a descrição
 	private Integer estado;
 	
-	@JsonBackReference //pedido com pagamento esconder
+	@JsonIgnore //pedido com pagamento esconder
 	//1 pagamento tem é de 1 pedido
 	@OneToOne
 	@JoinColumn(name = "pedido_id") //coloquei o nome dessa coluna como pedido_ididentificar no banco quem é o campo que está mapeando com pedido

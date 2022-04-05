@@ -12,11 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gillianocampos.cursospringangular.entities.enums.TipoCliente;
 
 @Entity
@@ -35,7 +33,7 @@ public class Cliente implements Serializable{
 	//o tipo é armazenado como inteiro mas para o mundo externo a classe expoe a descrição
 	private Integer tipo;
 	
-	@JsonManagedReference
+	
 	@OneToMany (mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
@@ -47,7 +45,7 @@ public class Cliente implements Serializable{
 	@CollectionTable(name = "Telefone")
 	private Set<String> telefones = new HashSet<>();
 	
-	@JsonBackReference //cliente com pedido os pedidos de um clientes nao serao serializados
+	@JsonIgnore //cliente com pedido os pedidos de um clientes nao serao serializados
 	//relacionamento com pedido 1 cliente tem varios pedidos
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
