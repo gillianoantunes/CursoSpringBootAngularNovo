@@ -13,6 +13,7 @@ import com.gillianocampos.cursospringangular.entities.Cidade;
 import com.gillianocampos.cursospringangular.entities.Cliente;
 import com.gillianocampos.cursospringangular.entities.Endereco;
 import com.gillianocampos.cursospringangular.entities.Estado;
+import com.gillianocampos.cursospringangular.entities.ItemPedido;
 import com.gillianocampos.cursospringangular.entities.Pagamento;
 import com.gillianocampos.cursospringangular.entities.PagamentoComBoleto;
 import com.gillianocampos.cursospringangular.entities.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.gillianocampos.cursospringangular.repositories.CidadeRepository;
 import com.gillianocampos.cursospringangular.repositories.ClienteRepository;
 import com.gillianocampos.cursospringangular.repositories.EnderecoRepository;
 import com.gillianocampos.cursospringangular.repositories.EstadoRepository;
+import com.gillianocampos.cursospringangular.repositories.ItemPedidoRepository;
 import com.gillianocampos.cursospringangular.repositories.PagamentoRepository;
 import com.gillianocampos.cursospringangular.repositories.PedidoRepository;
 import com.gillianocampos.cursospringangular.repositories.ProdutoRepository;
@@ -55,6 +57,10 @@ public class CursospringangularApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursospringangularApplication.class, args);
@@ -145,6 +151,23 @@ public class CursospringangularApplication implements CommandLineRunner {
 		pagamentoRepository.saveAll(Arrays.asList(pag1,pag2));
 		
 		
+		
+		//instanciar items de pedido
+		ItemPedido ip1 = new ItemPedido(ped1, produto1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, produto3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, produto2, 100.00, 1, 800.00);
+		
+		//associa os pedidos para conhecer seus items
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		//produto conhecer seus items tambem
+		produto1.getItens().addAll(Arrays.asList(ip1));
+		produto2.getItens().addAll(Arrays.asList(ip3));
+		produto3.getItens().addAll(Arrays.asList(ip2));
+		
+		//salvar os items criando o repository
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 	}
 
 }

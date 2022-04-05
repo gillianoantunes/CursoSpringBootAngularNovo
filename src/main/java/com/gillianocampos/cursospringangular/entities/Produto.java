@@ -2,7 +2,9 @@ package com.gillianocampos.cursospringangular.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -33,6 +36,9 @@ public class Produto implements Serializable{
 	           inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	//produto tem lista de itens de pedido
+	@OneToMany(mappedBy = "id.produto") //mapeado do outro lado pelo id.produto onde id usa classe auxiliar ItemPedidoPK que tem atributo produto
+	private Set<ItemPedido> itens = new HashSet<>();
 	
 	public Produto() {
 		
@@ -45,6 +51,14 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 
+	//metodo para montar lista de pedidos associado aos itens
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista = new ArrayList<>(); //crio a lista
+		for (ItemPedido x : itens) { //percorrer a lista de items que ja existe nesta classe
+			lista.add(x.getPedido()); //adicionar os pedidos
+		}
+		return lista; //retornar lista
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -76,6 +90,18 @@ public class Produto implements Serializable{
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+	
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
+	
+	//hascode
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,6 +126,8 @@ public class Produto implements Serializable{
 			return false;
 		return true;
 	}
+
+	
 
 
 	
