@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Categoria implements Serializable {
 
@@ -18,7 +20,7 @@ public class Categoria implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String name;
 	
 	
 	//como ja fiz @manytomany do outro lado na tabela produto agora eu nao preciso fazer de novo
@@ -30,10 +32,9 @@ public class Categoria implements Serializable {
 		
 	}
 
-	public Categoria(Integer id, String nome) {
-		super();
+	public Categoria(Integer id, String name) {
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 	}
 
 	public Integer getId() {
@@ -45,11 +46,11 @@ public class Categoria implements Serializable {
 	}
 
 	public String getName() {
-		return nome;
+		return name;
 	}
 
 	public void setName(String nome) {
-		this.nome = nome;
+		this.name = nome;
 	}
 	
 	public List<Produto> getProdutos() {

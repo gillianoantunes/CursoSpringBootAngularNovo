@@ -19,7 +19,7 @@ public class PedidoResource {
 	@Autowired
 	private PedidoService service;
 	
-	//INSERIR pedidos DIRETO NO BANCO H2
+
 	@RequestMapping(value= "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){ //? pode ser qualquer tipo		
 		Pedido obj = service.buscar(id);
