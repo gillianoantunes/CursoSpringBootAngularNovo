@@ -28,5 +28,8 @@ public class CategoriaService {
 		return repo.save(obj); //save retorna om obj
 	}
 	
-
+	public Categoria update(Categoria obj) {
+		buscar(obj.getId());//verifica se o id existe chamando o metodo buscar acima
+		return repo.save(obj); //quando id vale null o save insere, quando não é nulo ele atualiza o objeto
+	}
 }
