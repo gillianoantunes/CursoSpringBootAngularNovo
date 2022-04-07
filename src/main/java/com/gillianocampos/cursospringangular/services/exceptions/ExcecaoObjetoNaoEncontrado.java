@@ -1,5 +1,7 @@
 package com.gillianocampos.cursospringangular.services.exceptions;
 
+
+
 public class ExcecaoObjetoNaoEncontrado extends RuntimeException  {
 
 	private static final long serialVersionUID = 1L;

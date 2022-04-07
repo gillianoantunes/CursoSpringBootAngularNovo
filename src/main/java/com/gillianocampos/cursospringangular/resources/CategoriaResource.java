@@ -25,7 +25,7 @@ public class CategoriaResource {
 	
 	//Buscar UMA CATEGORIA DIRETO NO BANCO H2
 	@RequestMapping(value= "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Categoria> find(@PathVariable Integer id){ //? pode ser qualquer tipo		
+	public ResponseEntity<Categoria> find(@PathVariable Integer id){
 		Categoria obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);		
 	}
@@ -44,5 +44,11 @@ public class CategoriaResource {
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(value= "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete (@PathVariable Integer id){
+		service.delete(id); //incluir na classe de excecao ResourceExceptionHandler o tratamento
+		return ResponseEntity.noContent().build();
 
+	}
 }

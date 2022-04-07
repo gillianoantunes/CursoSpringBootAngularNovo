@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.gillianocampos.cursospringangular.services.exceptions.ExcecaoIntegridade;
 import com.gillianocampos.cursospringangular.services.exceptions.ExcecaoObjetoNaoEncontrado;
 
 @ControllerAdvice
@@ -20,5 +21,13 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<ErroPadrao> objetoNaoEncontrado(ExcecaoObjetoNaoEncontrado e, HttpServletRequest request){
 		ErroPadrao erro = new ErroPadrao(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
+	
+	
+	//integridade referencial
+	@ExceptionHandler(ExcecaoIntegridade.class)
+	public ResponseEntity<ErroPadrao> ExcecaodeIntegridade(ExcecaoIntegridade e, HttpServletRequest request){
+		ErroPadrao erro = new ErroPadrao(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
 }
