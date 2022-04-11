@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.gillianocampos.cursospringangular.dto.CategoriaDTO;
 import com.gillianocampos.cursospringangular.entities.Categoria;
 import com.gillianocampos.cursospringangular.repositories.CategoriaRepository;
 import com.gillianocampos.cursospringangular.services.exceptions.ExcecaoIntegridade;
@@ -61,6 +62,12 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linhaporPagina, String ordena, String direction){
 		PageRequest pageRequest = PageRequest.of(page,linhaporPagina, Direction.valueOf(direction),ordena);
 		return repo.findAll(pageRequest); //chama o findAll passando o Page
-		//agora fazer o endopoint no resource para chamar este metodo
+		//agora fazer o endopoint no resource para chamar este metodo no post e no put para validação
      }
+	
+	//metodo converte a partir de um objDTO para obj
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getName());
+	}
+	
 }

@@ -6,6 +6,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -35,16 +37,20 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(obj);		
 	}
 	
+	//@Valid para validar este obj antes de passar para frente
 	@RequestMapping(method = RequestMethod.POST) 
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO) {
+		//para converte Dto fazer um metodo na classe de serviço metodo fromDTO 
+		Categoria obj = service.fromDTO(objDTO);
 		obj = service.inserir(obj); // o save do service retorna um obj
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	
 	}
-	
+	//@Valid para validae conforme na classe CategoriaDTO
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@ Valid @RequestBody CategoriaDTO objDTO, @PathVariable Integer id){
+		Categoria obj = service.fromDTO(objDTO); // converte objDTO para obj
 		obj.setId(id); //só para garantir que objeto esta com id da requisição
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
