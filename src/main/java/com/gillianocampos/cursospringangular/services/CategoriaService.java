@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gillianocampos.cursospringangular.entities.Categoria;
@@ -53,5 +56,11 @@ public class CategoriaService {
 	public List<Categoria> findAll() {
 		return repo.findAll();
     }
-
+	
+	//paginação chamando a busca de todas categorias pelo findAll passando o page
+	public Page<Categoria> findPage(Integer page, Integer linhaporPagina, String ordena, String direction){
+		PageRequest pageRequest = PageRequest.of(page,linhaporPagina, Direction.valueOf(direction),ordena);
+		return repo.findAll(pageRequest); //chama o findAll passando o Page
+		//agora fazer o endopoint no resource para chamar este metodo
+     }
 }
