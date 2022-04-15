@@ -60,7 +60,7 @@ public class Cliente implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		//ternario se tipo ==null atribui null senao atribui get.cod
+		//para tipo enumerado se vier nulo o tipo faço ternario se tipo ==null atribui null senao atribui get.cod
 		this.tipo =(tipo==null)? null : tipo.getCod(); //mudar aqui para getcod integer 
 	}
 

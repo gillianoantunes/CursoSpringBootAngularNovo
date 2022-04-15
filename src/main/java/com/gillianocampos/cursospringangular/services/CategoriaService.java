@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.gillianocampos.cursospringangular.dto.CategoriaDTO;
 import com.gillianocampos.cursospringangular.entities.Categoria;
+import com.gillianocampos.cursospringangular.entities.Cliente;
 import com.gillianocampos.cursospringangular.repositories.CategoriaRepository;
 import com.gillianocampos.cursospringangular.services.exceptions.ExcecaoIntegridade;
 import com.gillianocampos.cursospringangular.services.exceptions.ExcecaoObjetoNaoEncontrado;
@@ -35,9 +36,18 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		buscar(obj.getId());// verifica se o id existe chamando o metodo buscar acima
-		return repo.save(obj); // quando id vale null o save insere, quando não é nulo ele atualiza o objeto
+		//quando alterar buscar e instanciar uma categoria a partir de um banco de dados para cpf e tipo nao fica null
+		Categoria newObj = buscar(obj.getId());
+		//atualizar os dados com metodo updateData
+		updateData(newObj, obj);
+		//salvar o newObj
+		return repo.save(newObj); 
 	}
+	
+	//metodo atualiza o newobj alterado e agora ele alterar os daods nome
+		private void updateData(Categoria newObj, Categoria obj) {
+			newObj.setName(obj.getName());
+		}
 
 	// verificar a integridade referencial ex: apagar uma categoria que tem produtos
 	// DataIntegrityViolationException criar exceçao personalizada
