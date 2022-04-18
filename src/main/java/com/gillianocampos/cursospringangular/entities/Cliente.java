@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -33,8 +34,9 @@ public class Cliente implements Serializable{
 	//o tipo é armazenado como inteiro mas para o mundo externo a classe expoe a descrição
 	private Integer tipo;
 	
-	
-	@OneToMany (mappedBy = "cliente")
+	//cascade=CascadeType.ALL serve quando toda operação que for modificar um cliente vai modificar ou apagar tambem todos endereços automaticamente
+	//ele apaga em endereços mas na lsta de pedidos nao pode colocar pois se o cliente tiver pedidos ele nao deixa apagar, so nao colocar nada na lista de pedidos abaixo
+	@OneToMany (mappedBy = "cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	//como a classe telefone só tem um atributo eu não vou criar a classe
