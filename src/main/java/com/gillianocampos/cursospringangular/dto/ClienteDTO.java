@@ -57,7 +57,10 @@ public class ClienteDTO implements Serializable {
 		this.email = email;
 	}
 
-
+	public String getcpfOuCnpj() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

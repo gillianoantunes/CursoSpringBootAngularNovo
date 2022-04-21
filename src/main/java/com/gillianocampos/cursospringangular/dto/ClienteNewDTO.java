@@ -2,24 +2,51 @@ package com.gillianocampos.cursospringangular.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.gillianocampos.cursospringangular.services.validation.ClientInsert;
+
 //classe para cadastrar um novo cliente com endereço,telefones,cidades e estado
+@ClientInsert //anotação que vou criar para validar cpf ou cnpj dependendo do tipo do cliente.criar classe no serviço no pacote validation chamada ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	//peguei todos dados da classe cliente endereço menos o Id e criei telefones
+	@NotEmpty(message = "Preechimento obrigatório")
+	@Length(min =5, max = 120 , message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String name;
+	
+	@NotEmpty(message = "Preechimento obrigatório")
+	@Email(message="Email inválido")
 	private String email;
+	
+	//verificar para validadr qual tipo do cliente e assim validar cpf ou cnpj
+	//se fosse so cpf ou cnpf tem anotação @CPF e @CNPJ entao usar la na classe @ClienteInsert que sera customizada
+	@NotEmpty(message = "Preechimento obrigatório")
 	private String cpfOuCnpj;
+	
 	private Integer tipo;
 	
+	@NotEmpty(message = "Preechimento obrigatório")
 	private String logradouro;
+
+	@NotEmpty(message = "Preechimento obrigatório")
 	private String numero;
+	
 	private String complemento;
+	
 	private String bairro;
+	
+	@NotEmpty(message = "Preechimento obrigatório")
 	private String cep;
 	
+	@NotEmpty(message = "Preechimento obrigatório")
 	private String telefone1;
+	
 	private String telefone2;
 	private String telefone3;
 	
