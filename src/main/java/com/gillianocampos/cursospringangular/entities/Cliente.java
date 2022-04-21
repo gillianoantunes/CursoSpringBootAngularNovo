@@ -27,6 +27,9 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	
+	//@Column(unique = true) faz o banco nao deixsr inserir 2 emails repetidos so que nao trata a exceçao
+	//melhor ir no clienteRepository e acrscentar uma operação fazer busca do email
 	private String email;
 	private String cpfOuCnpj;
 	

@@ -7,13 +7,22 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.gillianocampos.cursospringangular.dto.ClienteNewDTO;
+import com.gillianocampos.cursospringangular.entities.Cliente;
 import com.gillianocampos.cursospringangular.entities.enums.TipoCliente;
+import com.gillianocampos.cursospringangular.repositories.ClienteRepository;
 import com.gillianocampos.cursospringangular.resources.exceptions.FieldMessage;
 import com.gillianocampos.cursospringangular.services.validation.utils.BR;
 
 //mudar o nome ClientInsertValidator e entre<nomedaanotaçãoquecolocaremos e a classe que ira aceitar esta anotação que sera ClientNewDTO>
 public class ClienteInsertValidator implements ConstraintValidator<ClientInsert, ClienteNewDTO> {
+	
+	//injetar ClienteRepository
+	@Autowired
+	private ClienteRepository repo;
+	
 	@Override
 	//trocar nome para ClienteInsert aqui
 	public void initialize( ClientInsert ann) {
@@ -38,6 +47,13 @@ public class ClienteInsertValidator implements ConstraintValidator<ClientInsert,
 		if (objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDto.getCpfOuCnpj())) {
 			list.add(new FieldMessage("cpfOuCnpj", "CNPJ Inválido"));
 		}
+		
+		//testando email aux recebe email que esta inserido e testa se esse aux é diferente de nulo significa que existe
+		Cliente aux = repo.findByEmail(objDto.getEmail());
+		if(aux != null) {
+			list.add(new FieldMessage("email", "Email já existente"));
+		}
+		
 		
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
