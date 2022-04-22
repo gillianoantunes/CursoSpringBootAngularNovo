@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.gillianocampos.cursospringangular.entities.Cliente;
+import com.gillianocampos.cursospringangular.services.validation.ClientUpdate;
 
+@ClientUpdate
 public class ClienteDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
