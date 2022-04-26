@@ -47,7 +47,7 @@ public class CategoriaResource {
 		return ResponseEntity.created(uri).build();
 	
 	}
-	//@Valid para validae conforme na classe CategoriaDTO
+	//@Valid para validar conforme na classe CategoriaDTO
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@ Valid @RequestBody CategoriaDTO objDTO, @PathVariable Integer id){
 		Categoria obj = service.fromDTO(objDTO); // converte objDTO para obj

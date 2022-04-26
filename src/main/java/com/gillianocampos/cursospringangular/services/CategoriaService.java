@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.gillianocampos.cursospringangular.dto.CategoriaDTO;
 import com.gillianocampos.cursospringangular.entities.Categoria;
-import com.gillianocampos.cursospringangular.entities.Cliente;
 import com.gillianocampos.cursospringangular.repositories.CategoriaRepository;
 import com.gillianocampos.cursospringangular.services.exceptions.ExcecaoIntegridade;
 import com.gillianocampos.cursospringangular.services.exceptions.ExcecaoObjetoNaoEncontrado;
