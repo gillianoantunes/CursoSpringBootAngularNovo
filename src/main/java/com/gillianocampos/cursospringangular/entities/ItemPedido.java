@@ -39,6 +39,14 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
+	//metodo para calcular subtotal dos itens
+	//qaundo eu ponho o get na frente do nome do metodo getSubTotal o Json ja conhece e aparece esse subtotal quando dou um get aparece o campo subtotal na pesquisa
+	public double getSubTotal() {
+		return (preco - desconto) * quantidade;
+	}
+	
+	
+	
 	@JsonIgnore //referencia ciclica tudo que começa com get ele serializa tem que ignorar
 	// get de Produto e Pedido para ter acesso direto ao Pedido e Produto fora da
 	// minha classe ItemPedido
