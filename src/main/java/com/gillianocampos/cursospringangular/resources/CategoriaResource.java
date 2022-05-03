@@ -45,8 +45,9 @@ public class CategoriaResource {
 		obj = service.inserir(obj); // o save do service retorna um obj
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
-	
 	}
+	
+	
 	//@Valid para validar conforme na classe CategoriaDTO
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@ Valid @RequestBody CategoriaDTO objDTO, @PathVariable Integer id){

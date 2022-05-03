@@ -11,12 +11,16 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.gillianocampos.cursospringangular.entities.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) //na superclasse
 //abstract para proteger e nao conseguir instanciar a classe pagamento apenas com new da subclasse
 //exemplo Pagamento pag1 = new PagamentocomBoleto();
+//@JsonTypeInfo esta dizendo que minha classe pagamento tera um campo adicional que chama type pra indicar qual tipo de pagamento se é com boleto ou com cartao
+//na subclasse defina qual sera o valor do campo adicional ir na classe pagamento com boleto e classe pagamento com cartao e depois fazer classe de configuraçao JacksonConfig para registrar as subclasses com metodo pronto @Bean
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Pagamento implements Serializable{
 
 	private static final long serialVersionUID = 1L;

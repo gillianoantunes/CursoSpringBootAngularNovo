@@ -5,11 +5,13 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gillianocampos.cursospringangular.entities.enums.EstadoPagamento;
 
 //subclasse de Pagamento e não faz hashcode e equals pois a comparação ja esta na superclasse pagamento
 //tambem não precisa por implements serializable na subclasse mas tem que colocar o numero de versao private static final long serialVersionUID = 1L;
 @Entity
+@JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento{
 	
 	private static final long serialVersionUID = 1L;

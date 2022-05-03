@@ -2,11 +2,13 @@ package com.gillianocampos.cursospringangular.entities;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gillianocampos.cursospringangular.entities.enums.EstadoPagamento;
 
 //subclasse de Pagamento e não faz hashcode e equals pois a comparação ja esta na superclasse pagamento
 //tambem não precisa por implements serializable na subclasse mas tem que colocar o numero de versao private static final long serialVersionUID = 1L;
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento{
 
 	private static final long serialVersionUID = 1L;

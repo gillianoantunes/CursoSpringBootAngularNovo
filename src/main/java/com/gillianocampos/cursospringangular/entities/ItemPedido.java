@@ -49,16 +49,29 @@ public class ItemPedido implements Serializable {
 	
 	@JsonIgnore //referencia ciclica tudo que começa com get ele serializa tem que ignorar
 	// get de Produto e Pedido para ter acesso direto ao Pedido e Produto fora da
-	// minha classe ItemPedido
+	// minha classe ItemPedido para recuper um pedido e produto
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
 
+	// set de Pedido e Produto para itempedido possa instanciar um novoitempedido e associar um pedido e um produto a este itemdepedido
+	///sem o set so consigo instanciar por meio do construtor  com argumentos acima, mas o framework ele nao utiliza o construtor e sim o metodo set
+	public void setPedido(Pedido pedido) {
+		id.setPedido(pedido);
+	}
+	
+	
 	//nao usei @jsonIgnore para aparecer o produto nos items
 	public Produto getProduto() {
 		return id.getProduto();
 	}
+	
+	//setProduto
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
+	}
 
+	
 	public ItemPedidoPK getId() {
 		return id;
 	}
