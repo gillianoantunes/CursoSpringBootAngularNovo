@@ -71,6 +71,7 @@ public class DbService {
 				Categoria cat6 = new Categoria(null, "Decoração");
 				Categoria cat7 = new Categoria(null, "Perfumaria");
 			
+			
 				
 				
 				//instanciando produtos
