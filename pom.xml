@@ -14,9 +14,17 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cursospringangular</name>
 	<description>Treinamento project for Spring Boot</description>
-	<properties>
-		<java.version>11</java.version>
-	</properties>
+	 <properties>
+
+<java.version>11</java.version>
+
+<maven.compiler.source>11</maven.compiler.source>
+
+<maven.compiler.target>11</maven.compiler.target>
+
+</properties>
+	
+	
 
 
 
@@ -129,16 +137,21 @@
 
 			<plugin>
 
+ 				
+ 				
 				<groupId>org.springframework.boot</groupId>
 
 				<artifactId>spring-boot-maven-plugin</artifactId>
 
+ 				
 			</plugin>
 
 		</plugins>
-
+<defaultGoal>install</defaultGoal>
 	</build>
 
+   
+  
 
 
 </project>
