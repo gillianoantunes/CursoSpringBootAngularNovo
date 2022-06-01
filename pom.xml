@@ -14,17 +14,17 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cursospringangular</name>
 	<description>Treinamento project for Spring Boot</description>
-	 <properties>
+	<properties>
 
-<java.version>11</java.version>
+		<java.version>11</java.version>
 
-<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.source>11</maven.compiler.source>
 
-<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.target>11</maven.compiler.target>
 
-</properties>
-	
-	
+	</properties>
+
+
 
 
 
@@ -83,41 +83,41 @@
 		</dependency>
 
 
-          <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
 
-<dependency>
+		<dependency>
 
-    <groupId>javax.validation</groupId>
+			<groupId>javax.validation</groupId>
 
-    <artifactId>validation-api</artifactId>
+			<artifactId>validation-api</artifactId>
 
-    <version>2.0.1.Final</version><!--$NO-MVN-MAN-VER$-->
+			<version>2.0.1.Final</version><!--$NO-MVN-MAN-VER$ -->
 
-</dependency>
+		</dependency>
 
-<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 
-<dependency>
+		<dependency>
 
-    <groupId>org.hibernate</groupId>
+			<groupId>org.hibernate</groupId>
 
-    <artifactId>hibernate-validator</artifactId>
+			<artifactId>hibernate-validator</artifactId>
 
-    <version>7.0.1.Final</version>
+			<version>7.0.1.Final</version>
 
-</dependency>
+		</dependency>
 
-<!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
+		<!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
 
-<dependency>
+		<dependency>
 
-    <groupId>jakarta.validation</groupId>
+			<groupId>jakarta.validation</groupId>
 
-    <artifactId>jakarta.validation-api</artifactId>
+			<artifactId>jakarta.validation-api</artifactId>
 
-    <version>3.0.0</version><!--$NO-MVN-MAN-VER$-->
+			<version>3.0.0</version><!--$NO-MVN-MAN-VER$ -->
 
-</dependency>
+		</dependency>
 
 		<dependency>
 
@@ -137,21 +137,21 @@
 
 			<plugin>
 
- 				
- 				
+
+
 				<groupId>org.springframework.boot</groupId>
 
 				<artifactId>spring-boot-maven-plugin</artifactId>
 
- 				
+
 			</plugin>
 
 		</plugins>
-<defaultGoal>install</defaultGoal>
+		<defaultGoal>install</defaultGoal>
 	</build>
 
-   
-  
+
+
 
 
 </project>

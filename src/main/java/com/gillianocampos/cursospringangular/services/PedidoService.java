@@ -37,6 +37,9 @@ public class PedidoService {
 	// injeção dos items de pedido
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	
+	@Autowired
+	private ClienteService clienteService;
 
 	public Pedido buscar(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
@@ -55,6 +58,8 @@ public class PedidoService {
 		// seta o instante desse pedido
 		obj.setInstante(new Date());
 
+		obj.setCliente(clienteService.buscar(obj.getCliente().getId()));
+		
 		// classe pagamento id é o mesmo do idpedido que sera utomaticamente feito pelo
 		// jpa e estado do pagamento pendente
 		// inserindo pedido agora entao o pagamento é pendente
@@ -95,6 +100,8 @@ public class PedidoService {
 			// para cada item vou fazer desconto zero, quantidade ja vai vir na requisição
 			// json
 			ip.setDesconto(0.0);
+			ip.setProduto(produtoService.buscar(ip.getProduto().getId()));
+			
 			// preco vou ter que buscar no banco pois na requisição so vira o id. para isso
 			// fazer injeção do produtoService la em cima para chamar o metodo buscar em
 			// ProdutoService
@@ -102,7 +109,7 @@ public class PedidoService {
 			// requisiçao
 			// pego esse id e busco no banco de dados o produto inteiro
 			// de posse do produto na mao eu chama no fim o getPreco()
-			ip.setPreco(produtoService.buscar(ip.getProduto().getId()).getPreco());
+			ip.setPreco(ip.getProduto().getPreco());
 			// associo esse item de pedido como pedido que estou inserindo que é o obj
 			ip.setPedido(obj);
 		}
@@ -110,6 +117,9 @@ public class PedidoService {
 		// o repositoy é capaz de salvar uma lista no caso obj.getItens()
 		itemPedidoRepository.saveAll(obj.getItens());
 
+		//para imprimir o pedido na tela
+		System.out.println(obj);
+		
 		// salvei pedido,pagamento, e itens agora retornar o obj
 		return obj;
 		

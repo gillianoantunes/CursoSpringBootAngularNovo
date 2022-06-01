@@ -1,8 +1,11 @@
 package com.gillianocampos.cursospringangular.entities;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -25,15 +28,13 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm") //formata a data
+
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm") // formata a data
 	private Date instante;
 
-	
 	// relacionamentos no diagrama
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
-
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
@@ -44,7 +45,8 @@ public class Pedido implements Serializable {
 	private Endereco enderecoDeEntrega;
 
 	// pedido tem lista de itens de pedido
-	@OneToMany(mappedBy = "id.pedido") //relacionamento do outro lado é o id.pedido onde id esta na classe ItemPedido e pedido esta na classe ItemPedidoPK
+	@OneToMany(mappedBy = "id.pedido") // relacionamento do outro lado é o id.pedido onde id esta na classe ItemPedido
+										// e pedido esta na classe ItemPedidoPK
 	private Set<ItemPedido> itens = new HashSet<>();
 
 	// construtores
@@ -63,12 +65,12 @@ public class Pedido implements Serializable {
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
-	
-	//metodo para calcular o total do pedido inteiro 
-	//metodo de nome get para aparecer na pesquisa de pedidos
+
+	// metodo para calcular o total do pedido inteiro
+	// metodo de nome get para aparecer na pesquisa de pedidos
 	public double getValorTotal() {
 		double soma = 0;
-		//para cada ItemPedido ip na minha lista de Itens
+		// para cada ItemPedido ip na minha lista de Itens
 		for (ItemPedido ip : itens) {
 			soma = soma + ip.getSubTotal();
 		}
@@ -115,7 +117,7 @@ public class Pedido implements Serializable {
 	public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
-	
+
 	public Set<ItemPedido> getItens() {
 		return itens;
 	}
@@ -123,8 +125,6 @@ public class Pedido implements Serializable {
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
 	}
-	
-	
 
 	// hascode Equals
 
@@ -153,5 +153,32 @@ public class Pedido implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		// formatar preços e onde tem preço colocar o nf.format
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		//formatar data e onde tem data colocar o sdf
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pedido número: ");
+		builder.append(getId());
+		builder.append(", Instante: ");
+		builder.append(sdf.format(getInstante()));
+		builder.append(", Cliente: ");
+		builder.append(getCliente().getName());
+		builder.append(", Situação do pagamento: ");
+		builder.append(getPagamento().getEstado().getDescricao());
+		builder.append("\nDetalhes: \n");
+		// itens do pedido ip na lista de intens
+		for (ItemPedido ip : getItens()) {
+			// concatenar ip.tostring
+			builder.append(ip.toString());
+		}
+
+		builder.append("Valor Total: ");
+		builder.append(nf.format(getValorTotal()));
+
+		return builder.toString();
+	}
 
 }
