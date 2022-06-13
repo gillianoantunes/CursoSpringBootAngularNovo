@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.gillianocampos.cursospringangular.dto.CategoriaDTO;
-import com.gillianocampos.cursospringangular.entities.Categoria;
 import com.gillianocampos.cursospringangular.entities.Pedido;
 import com.gillianocampos.cursospringangular.services.PedidoService;
 

@@ -40,6 +40,9 @@ public class PedidoService {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	public Pedido buscar(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
@@ -118,7 +121,10 @@ public class PedidoService {
 		itemPedidoRepository.saveAll(obj.getItens());
 
 		//para imprimir o pedido na tela
-		System.out.println(obj);
+		// apaguei para agora chamar o envio de email System.out.println(obj);
+		
+		//chama o metodo sendorder.. para enviar email
+		emailService.sendOrderConfirmationEmail(obj);
 		
 		// salvei pedido,pagamento, e itens agora retornar o obj
 		return obj;

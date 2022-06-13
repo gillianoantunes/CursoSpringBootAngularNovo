@@ -41,7 +41,7 @@ public class Pedido implements Serializable {
 	private Cliente cliente;
 
 	@ManyToOne
-	@JoinColumn(name = "endereco_de_entrega_d")
+	@JoinColumn(name = "endereco_de_entrega")
 	private Endereco enderecoDeEntrega;
 
 	// pedido tem lista de itens de pedido

@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.gillianocampos.cursospringangular.services.DbService;
+import com.gillianocampos.cursospringangular.services.EmailService;
+import com.gillianocampos.cursospringangular.services.MockEmailService;
 
 // administra qual profile application.properties vou usar
 //configura coisas especificas para cada profile que tiver no caso test
@@ -27,4 +29,12 @@ public class TesteConfig {
 		dbService.instantiateTestDatabase();
 		return true;
 	}
+	
+	// faz com que o spring procura a injeção de dependencia do EmailService e vem aqui
+	@Bean 
+	public EmailService emailService() {
+		//retorna a instancia de MockEmailService
+		return new MockEmailService();
+	}
+	
 }
