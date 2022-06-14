@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.gillianocampos.cursospringangular.services.DbService;
+import com.gillianocampos.cursospringangular.services.EmailService;
+import com.gillianocampos.cursospringangular.services.SmtpEmailService;
 
 // administra qual profile application.properties vou usar
 //configura coisas especificas para cada profile que tiver no caso test
@@ -27,8 +29,7 @@ public class DevConfig {
 	private String strategy;
 	
 	
-	//todos os beans serao ativados quando tiver ativo o profile test
-
+	
 	@Bean 
 	public boolean instantiateDatabase90() throws ParseException{
 		
@@ -41,4 +42,12 @@ public class DevConfig {
 		dbService.instantiateTestDatabase();
 		return true;
 	}
+	
+	//criar um bean para retornar um smtpEmailService no perfil dev quando rodar meu sistema sera instanciado um stmpemailservice e nao mais o mock
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
+	}
+	
 }
+

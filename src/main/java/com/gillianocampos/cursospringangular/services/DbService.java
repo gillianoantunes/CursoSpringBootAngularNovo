@@ -130,7 +130,7 @@ public class DbService {
 				cidadeRepository.saveAll(Arrays.asList(cid1,cid2,cid3));
 				
 				//instanciando clientes primeiro que endereços e telefones pois não depende deles
-				Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36415898741", TipoCliente.PESSOAFISICA);
+				Cliente cli1 = new Cliente(null, "Maria Silva", "gillianoantunes95@gmail.com", "36415898741", TipoCliente.PESSOAFISICA);
 				
 				//telefones
 				cli1.getTelefones().addAll(Arrays.asList("3257845211", "3154785546"));
