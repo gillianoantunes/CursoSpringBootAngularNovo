@@ -123,9 +123,9 @@ public class PedidoService {
 		//para imprimir o pedido na tela
 		// apaguei para agora chamar o envio de email System.out.println(obj);
 		
-		//chama o metodo sendorder.. para enviar email
-		emailService.sendOrderConfirmationEmail(obj);
-		
+		//chama o metodo sendorder.. para enviar email formato texto
+		//apaguei a frente para enviar abaixo o formato html emailService.sendOrderConfirmationEmail(obj);
+		emailService.sendOrderConfirmationHtmlEmail(obj);
 		// salvei pedido,pagamento, e itens agora retornar o obj
 		return obj;
 		
